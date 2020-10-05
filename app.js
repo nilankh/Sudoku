@@ -67,6 +67,8 @@ function generateBoard(board) {
     if ((tile.id + 1) % 9 == 3 || (tile.id + 1) % 9 == 6) {
       tile.classList.add("rightBorder");
     }
+    // Add tiles to  board
+    id("board").appendChild(tile);
   }
 }
 function clearPrevious() {
