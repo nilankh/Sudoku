@@ -21,7 +21,23 @@ var selectedNum;
 var selectedTile;
 var disbaleSelect;
 
+window.onload = function () {
+  // Run start game function when button is clicked
+  id("start-btn").addEventListener("click", startGame);
+};
 
-window.onload = function() {
-    // Run start game function when button is clicked
+function startGame() {
+  // Choose board difficulty
+  let board;
+  if (id("diff-1").checked) board = easy[0];
+  else if (id("diff-2").checked) board = medium[0];
+  else board = hard[0];
+  //   set lives to 3 and enable selecting number and tiles
+  lives = 3;
+  disbaleSelect = false;
+  id("lives").textContent = "Lives Remaining: 3";
+}
+
+function id(id) {
+  return document.getElementById(id);
 }
