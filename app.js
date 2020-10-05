@@ -112,26 +112,26 @@ function generateBoard(board) {
       tile.textContent = board.charAt(i);
     } else {
       // Add click event listener to tile
-        tile.addEventListener("click", function() {
-            // If selectng is not diabled
-            if(!disbaleSelect){
-                // if tile is already selected
-                if(tile.classList.contains("selected")){
-                    // then remvoe selectun
-                    tile.classList.remove("selected");
-                    selectedTile=null;
-                }else{
-                    // Deselect all other tiles
-                    for(let i = 0; i < 81; i++){
-                        qsa(".tile")[i].classList.remove("selected");
-                    }
-                    // Add selection and update varianle
-                    tile.classList.add("selected");
-                    selectedTile = tile;
-                    updateMove();
-                }
+      tile.addEventListener("click", function () {
+        // If selectng is not diabled
+        if (!disbaleSelect) {
+          // if tile is already selected
+          if (tile.classList.contains("selected")) {
+            // then remvoe selectun
+            tile.classList.remove("selected");
+            selectedTile = null;
+          } else {
+            // Deselect all other tiles
+            for (let i = 0; i < 81; i++) {
+              qsa(".tile")[i].classList.remove("selected");
             }
-        })
+            // Add selection and update varianle
+            tile.classList.add("selected");
+            selectedTile = tile;
+            updateMove();
+          }
+        }
+      });
     }
     // Assign tile id
     tile.id = idCount;
@@ -149,6 +149,42 @@ function generateBoard(board) {
     id("board").appendChild(tile);
   }
 }
+
+function updateMove() {
+  // IF a tile and a number is selected
+  if (selectedTile && selectedNum) {
+    // Set the tile to the correct number
+    selectedTile.textContent = selectedNum.textContent;
+    // if the number matches the correspodning number in the solution key
+    if (checkCorrect(selectedTile)) {
+      // Deselect the tile
+      selectedTile.classList.remove("selected");
+      selectedNum.classList.remove("selected");
+      //   Clear the selected variables
+      selectedNum = null;
+      selectedTile = null;
+
+      // if the number does not match the solution key
+    } else {
+      // Disable selecting new numbers for one second
+      disbaleSelect = true;
+      // Make the tile turn red
+      selectedTile.classList.add("incorrect");
+    }
+  }
+}
+
+function checkCorrect(tile) {
+  // Set solution baesd on difficulty selection
+  let solution;
+  if (id("diff-1").checked) solution = easy[1];
+  else if (id("diff-2").checked) solution = medium[1];
+  else solution = hard[0];
+  //   if tiles numbe is equal to solution numbers
+  if (solution.charAt(tile.id) === tile.textContent) return true;
+  else return false;
+}
+
 function clearPrevious() {
   // Access all of the tiles
   let tiles = qsa(".tile");
