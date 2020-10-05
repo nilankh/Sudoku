@@ -36,8 +36,45 @@ function startGame() {
   lives = 3;
   disbaleSelect = false;
   id("lives").textContent = "Lives Remaining: 3";
+  //   creates board based on difficulty
+  generateBoard(board);
+}
+function generateBoard(board) {
+  // Clear previous board
+  clearPrevious();
+  //   Let use to increment tiles ids
+  let idCount = 0;
+  // Cretate 81 tiles
+  for (let i = 0; i < 81; i++) {
+    // Create a new paragraph element
+    let tile = document.createElement("p");
+  }
+}
+function clearPrevious() {
+  // Access all of the tiles
+  let tiles = qsa(".tile");
+  //   Remove each tile
+  for (let i = 0; i < tiles.length; i++) {
+    tiles[i].remove();
+  }
+  // if there is a time clear it
+  if (timer) clearTimeout(timer);
+  for (let i = 0; i < id("number-container").children.length; i++) {
+    id("number-container").children[i].classList.remove("selected");
+  }
+  //   Clear selected variables
+  selectedTile = null;
+  selectedNum = null;
 }
 
+// Helper Functions
 function id(id) {
   return document.getElementById(id);
+}
+function qs(selector) {
+  return document.querySelector(selector);
+}
+
+function qsa(selector) {
+  return document.querySelectorAll(selector);
 }
