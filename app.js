@@ -1,4 +1,3 @@
-
 // Load boards from file or manually
 const easy = [
   "6------7------5-2------1---362----81--96-----71--9-4-5-2---651---78----345-------",
@@ -12,3 +11,17 @@ const hard = [
   "-1-5-------97-42----5----7-5---3---7-6--2-41---8--5---1-4------2-3-----9-7----8--",
   "712583694639714258845269173521436987367928415498175326184697532253841769976352841",
 ];
+
+// create variables
+
+var timer;
+var timeRemaining;
+var lives;
+var selectedNum;
+var selectedTile;
+var disbaleSelect;
+
+
+window.onload = function() {
+    // Run start game function when button is clicked
+}
