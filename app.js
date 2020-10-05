@@ -163,17 +163,61 @@ function updateMove() {
       //   Clear the selected variables
       selectedNum = null;
       selectedTile = null;
-
+      // Check if board is completed
+      if (checkDone()) {
+        endGame();
+      }
       // if the number does not match the solution key
     } else {
       // Disable selecting new numbers for one second
       disbaleSelect = true;
       // Make the tile turn red
       selectedTile.classList.add("incorrect");
+      //   run in one second
+      setTimeout(function () {
+        // Subtract lives by one
+        lives--;
+        // If no lives left  end the game
+        if (lives === 0) {
+          endGame();
+        } else {
+          // if lives is not equal to zero
+          // Update lives text
+          id("lives").textContent = "Lives Remaining: " + lives;
+          // Re enable the selecting numbers and tiles
+          disbaleSelect = false;
+        }
+        // Restore tile color and remove slected fromboth
+        selectedTile.classList.remove("incorrect");
+        selectedTile.classList.remove("selected");
+        selectedNum.classList.remove("selected");
+
+        // clear the tiles and clear selected variables
+        selectedTile.textContent = "";
+        selectedTile = null;
+        selectedNum = null;
+      }, 1000);
     }
   }
 }
-
+function checkDone() {
+  let tiles = qsa(".tile");
+  for (let i = 0; i < tiles.length; i++) {
+    if (tiles[i].textContent === "") return false;
+  }
+  return true;
+}
+function endGame() {
+  // Disabe moves and stop the timer
+  disbaleSelect = true;
+  clearTimeout(timer);
+  //   Display win or loss message
+  if (lives === 0 || timeRemaining === 0) {
+    id("lives").textContent = "You Lost";
+  } else {
+    id("lives").textContent = "You Won!!";
+  }
+}
 function checkCorrect(tile) {
   // Set solution baesd on difficulty selection
   let solution;
